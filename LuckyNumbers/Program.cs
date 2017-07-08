@@ -10,102 +10,103 @@ namespace LuckyNumbers
     {
         static void Main(string[] args)
         {
+            // while loop
+            // repeat certain code over and over as long as certain condition is true
+            // will check the condition to see if its met, and if not, it will skip the loop
 
-            double jackpot = 1000000d;
-            Console.WriteLine("Welcome to the Lucky Numbers game! Today's jackpot is $" + jackpot + ".");
+            // do-while loop
+            // will always be executed at least once
 
-            // PART 1
+            // for loop
+            // good for counting
+            // has three components: initial state, condition, action performed at the end
 
-            Console.WriteLine("Enter a starting number for the lowest number in the number range.");
-            int lowNumber = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter a starting number for the highest number in the number range.");
-            int highNumber = int.Parse(Console.ReadLine());
-
-            int[] userNumbers = new int[6];
-
-            for (int i = 0; i <= userNumbers.Length - 1; i++) // i needs to start at index 0 (i=0); continue until it reaches index 5; and update by adding 1 (i++)
+            string playAgain; // added for PART 4
+            do // added for PART 4
             {
-                Console.WriteLine("Enter a number between the number range.");
-                int userInput = int.Parse(Console.ReadLine());
-                while (userInput < lowNumber || userInput > highNumber)
+                double jackpot = 1000000d;
+                Console.WriteLine("Welcome to the Lucky Numbers game! Today's jackpot is $" + jackpot + ".");
+
+                // PART 1
+
+                Console.WriteLine("Enter a starting number for the lowest number in the number range.");
+                int lowNumber = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter a starting number for the highest number in the number range.");
+                int highNumber = int.Parse(Console.ReadLine());
+
+                int[] userNumbers = new int[6];
+
+                for (int i = 0; i <= userNumbers.Length - 1; i++) // i needs to start at index 0 (i=0); continue until it reaches index 5; and update by adding 1 (i++)
                 {
-                    Console.WriteLine("Please enter a valid number.");
-                    userInput = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Enter a number between the number range.");
+                    int userInput = int.Parse(Console.ReadLine());
+                    while (userInput < lowNumber || userInput > highNumber)
+                    {
+                        Console.WriteLine("Please enter a valid number.");
+                        userInput = int.Parse(Console.ReadLine());
+                    }
+                    userNumbers[i] = userInput;
                 }
-                userNumbers[i] = userInput;
+
+                // PART 2
+
+                int[] luckyNumbers = new int[6];
+                Random randomNumber = new Random();
+
+                for (int i = 0; i <= luckyNumbers.Length - 1; i++)
+                {
+                    luckyNumbers[i] = randomNumber.Next(lowNumber, highNumber + 1); // why do i need to enter +1 here instead of ++ to stay within the correct number range?
+                    Console.WriteLine("Lucky Number: " + luckyNumbers[i]);
+                }
+
+                // PART 3
+
+                int numbersGuessedCorrectly = 0;
+
+                foreach (int guess in userNumbers)
+                {
+                    while (guess == luckyNumbers[0] || guess == luckyNumbers[1] || guess == luckyNumbers[2] || guess == luckyNumbers[3] || guess == luckyNumbers[4] || guess == luckyNumbers[5])
+                    {
+                        numbersGuessedCorrectly++;
+                        break; // this is necessary but i don't know why
+                    }
+                }
+                Console.WriteLine("You guessed " + numbersGuessedCorrectly + " numbers correctly!");
+
+                // percentage of numbers guessed correctly = percentage of jackpot user wins
+
+                double percentageGuessedCorrectly = numbersGuessedCorrectly / 6d;
+
+                double userWinnings = jackpot * percentageGuessedCorrectly;
+
+                // if i just use string userWinningsDollar = userWinnings.ToString("C2") then 0 is converted to "Infinity"
+                // if else created to account for $0.00 if 0 numbers are guessed correctly and therefore user gets $0.00 winnings
+
+                string userWinningsDollar;
+
+                if (userWinnings == 0)
+                {
+                    userWinningsDollar = "$0.00";
+                }
+                else
+                {
+                    userWinningsDollar = userWinnings.ToString("C2");
+                }
+
+                Console.WriteLine("You won " + userWinningsDollar + "!");
+
+                // PART 4
+
+                Console.WriteLine("Would you like to play again? Please enter Yes or No.");
+                playAgain = Console.ReadLine().ToUpper();
+                if (playAgain == "NO")
+                {
+                    Console.WriteLine("Thanks for playing!");
+                }
             }
-
-            // PART 2
-
-            int[] luckyNumbers = new int[6];
-            Random randomNumber = new Random();
-
-            for (int i = 0; i <= luckyNumbers.Length - 1; i++)
-            {
-                luckyNumbers[i] = randomNumber.Next(lowNumber, highNumber++);
-                Console.WriteLine("Lucky Number: " + luckyNumbers[i]);
-            }
-
-            // PART 3
-
-            // The program should count the number of correctly guessed numbers and output to the console to notify the user.
-            // Example: You guessed 3 numbers correctly!
-
-            //int numbersGuessedCorrectly = 0;
-
-            //// this runs an infinite number of times
-            //foreach (int guess in userNumbers)
-            //{
-            //    while (guess == luckyNumbers[0] || guess == luckyNumbers[1] || guess == luckyNumbers[2] || guess == luckyNumbers[3] || guess == luckyNumbers[4] || guess == luckyNumbers[5])
-            //    {
-            //        numbersGuessedCorrectly++;
-            //        Console.WriteLine("You guessed " + numbersGuessedCorrectly + "numbers correctly!");
-            //    }
-            //}
-
-            // did not work:
-            //foreach (int guess in userNumbers)
-            //{
-            //    do
-            //    {
-            //        numbersGuessedCorrectly++;
-            //        Console.WriteLine("You guessed " + numbersGuessedCorrectly + "numbers correctly!");
-            //    }
-            //    while (guess == luckyNumbers[0] || guess == luckyNumbers[1] || guess == luckyNumbers[2] || guess == luckyNumbers[3] || guess == luckyNumbers[4] || guess == luckyNumbers[5]);
-            //}
-
-            // did not work:
-            //foreach (int guess in userNumbers)
-            //{
-            //    numbersGuessedCorrectly++;
-            //    Console.WriteLine("You guessed " + numbersGuessedCorrectly + " numbers correctly!");
-            //    while (guess == luckyNumbers[0] || guess == luckyNumbers[1] || guess == luckyNumbers[2] || guess == luckyNumbers[3] || guess == luckyNumbers[4] || guess == luckyNumbers[5]);
-            //}
-
-            // The program should calculate the user's winnings based on the number of numbers guessed correctly.
-            // double userWinnings = jackpot % numbersGuessedCorrectly;
-
-            // The user's winnings should be output to the console.
-            // Example: You won $256, 877.23!
-            // Console.WriteLine("You won $" + userWinnings + "!");
-
-            // PART 4
-
-            //entire game is do-while loop
-            //string playAgain;
-            //do
-            //{
-            //    enter the code to the game here
-            //    Console.WriteLine("Would you like to play again? Please enter "Yes" or "No."");
-            //    playAgain = Console.ReadLine().ToUpper();
-            //    if (playAgain == "NO")
-            //    {
-            //      Console.WriteLine("Thanks for playing!");
-            //    }
-            //}
-            //while (playAgain == "YES");
+            while (playAgain == "YES"); // repeats game if user enters yes
 
         }
-    }
+        }
 }
