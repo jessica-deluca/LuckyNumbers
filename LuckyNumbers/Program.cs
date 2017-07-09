@@ -45,9 +45,30 @@ namespace LuckyNumbers
 
                 for (int i = 0; i <= luckyNumbers.Length - 1; i++)
                 {
+                    // STRETCH TASKS
                     luckyNumbers[i] = randomNumber.Next(lowNumber, highNumber + 1); // saving random numbers in luckyNumbers array
+                    while (luckyNumbers[1] == luckyNumbers[0])
+                    {
+                        luckyNumbers[1] = randomNumber.Next(lowNumber, highNumber + 1);
+                    }
+                    while (luckyNumbers[2] == luckyNumbers[0] || luckyNumbers[2] == luckyNumbers[1])
+                    {
+                        luckyNumbers[2] = randomNumber.Next(lowNumber, highNumber + 1);
+                    }
+                    while (luckyNumbers[3] == luckyNumbers[0] || luckyNumbers[3] == luckyNumbers[1] || luckyNumbers[3] == luckyNumbers[2])
+                    {
+                        luckyNumbers[3] = randomNumber.Next(lowNumber, highNumber + 1);
+                    }
+                    while (luckyNumbers[4] == luckyNumbers[0] || luckyNumbers[4] == luckyNumbers[1] || luckyNumbers[4] == luckyNumbers[2] || luckyNumbers[4] == luckyNumbers[3])
+                    {
+                        luckyNumbers[4] = randomNumber.Next(lowNumber, highNumber + 1);
+                    }
+                    while (luckyNumbers[5] == luckyNumbers[0] || luckyNumbers[5] == luckyNumbers[1] || luckyNumbers[5] == luckyNumbers[2] || luckyNumbers[5] == luckyNumbers[3] || luckyNumbers[5] == luckyNumbers[4])
+                    {
+                        luckyNumbers[5] = randomNumber.Next(lowNumber, highNumber + 1);
+                    }
                     Console.WriteLine("Lucky Number: " + luckyNumbers[i]);
-                }
+                } 
 
                 // PART 3
 
