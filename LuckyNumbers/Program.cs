@@ -87,7 +87,7 @@ namespace LuckyNumbers
                 {
                     Console.WriteLine("You guessed " + numbersGuessedCorrectly + " number correctly!");
                 }
-                else  // if more than 1 number guessed correctly, console reads X numbers (number is plural)
+                else  // if more than 1 number guessed correctly, console reads X numbers (numbers is plural)
                 {
                     Console.WriteLine("You guessed " + numbersGuessedCorrectly + " numbers correctly!");
                 }
